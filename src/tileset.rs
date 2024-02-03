@@ -167,7 +167,8 @@ impl Tileset<RawPixels> {
     ) -> Result<Tileset<RawPixels>> {
         let mut reader = AseReader::new(data);
         let id = reader.dword()?;
-        let flags = reader.dword().map(|val| TilesetFlags { bits: val })?;
+        /*{ /*bits: val*/ }) */        
+        let flags = reader.dword().map(|val| TilesetFlags::from_bits(val).unwrap())?;
         let empty_tile_is_id_zero = flags.contains(TilesetFlags::EMPTY_TILE_IS_ID_ZERO);
         let tile_count = reader.dword()?;
         let tile_width = reader.word()?;
